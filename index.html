@@ -1,0 +1,54 @@
+</html>
+<head>
+  <style>
+    body {
+      margin: 1em 3em;
+      font: 1em constantia, palatino, "times new roman";
+    }
+
+    .entry .domain { 
+      margin-left: 0.5em; 
+      font-family: monospace;
+      color: #A0A0A0;
+    }
+
+    .entry .date {
+      margin-right: 2em;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <h1>News</h1>
+  <div id="main"></div>
+</body>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var mainDom = $("#main"),
+            urlParser = document.createElement('a');
+        $.get('/entries.txt', function(data) {
+            var lines = data.split('\n');
+            for (var i=0; i<lines.length; i++) {
+                var line = lines[i];
+                if (line.trim().length == 0)
+                    continue;
+                var parts = line.split('\t'),
+                date = parts[0].split(' ')[0],
+                title = parts[1],
+                link = parts[2];
+
+                urlParser.href = link;
+                domain = urlParser.hostname;
+                html = 
+                    '<div class="entry">' +
+                    '<span class="date">' +date+ '</span>' +
+                    '<a href="' +link+ '">' +title+ '</a>' +
+                    '<span class="domain">(' +domain+ ')</span>' +
+                    '</div>';
+                $(mainDom).append(html);
+            }
+        });
+    });
+</script>
+</html>

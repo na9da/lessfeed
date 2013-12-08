@@ -19,7 +19,7 @@ TEMPLATE = """
 
 ENTRY_TEMPLATE = """
   <div class="entry">
-     %(date)s - <a href="%(link)s">%(title)s</a> <span class="domain">(%(domain)s)</span>
+     <span class="date">%(date)s</span> - <a href="%(link)s">%(title)s</a> <span class="domain">(%(domain)s)</span>
   </div>
 """
 #===
