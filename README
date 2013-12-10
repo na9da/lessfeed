@@ -1,5 +1,0 @@
-LessFeed is a personal feed aggregator written in Python.
-LessFeed polls the ./feedlist and writes the feed entries into a static HTML page.
-
-   pip install -r requirements.txt
-   python lessfeed.py

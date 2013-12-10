@@ -1,4 +1,3 @@
 tracker
 feedlist
-public/*.html
-public/entries-*
+entries.txt
