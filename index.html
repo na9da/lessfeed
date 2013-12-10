@@ -27,7 +27,7 @@
     $(document).ready(function() {
         var mainDom = $("#main"),
             urlParser = document.createElement('a');
-        $.get('/entries.txt', function(data) {
+        $.get('entries.txt', function(data) {
             var lines = data.split('\n');
             for (var i=0; i<lines.length; i++) {
                 var line = lines[i];
