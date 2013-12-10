@@ -1,7 +1,5 @@
 import time
 import feedparser
-import os
-from urllib.parse import urlparse
 
 POLL_INTERVAL = 30 * 60 # seconds
 
