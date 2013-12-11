@@ -34,6 +34,8 @@ def run(feedlist_file):
         with open(feedlist_file) as f:
             for line in f:
                 feedurl = line.strip()
+                if feedurl.startswith('#'):
+                    continue
                 if len(feedurl) > 0:
                     feeds[feedurl] = {'url': feedurl, 'last_polled': None, 'etag': None, 'modified': None}
         try:
