@@ -17,8 +17,8 @@ def poll(feeds):
             date = time.strftime("%Y-%m-%d %H:%M:%S", entry['published_parsed'])
             entries.append({
                 'date': date,
-                'title': entry['title'],
-                'link': entry['link'],
+                'title': entry['title'].encode('utf-8'),
+                'link': entry['link'].encode('utf-8'),
             })
         modified_date = parsed_feed.get('modified_parsed')
         feed['modified'] =  int(time.mktime(modified_date)) if modified_date else None
