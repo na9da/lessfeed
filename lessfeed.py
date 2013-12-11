@@ -17,8 +17,8 @@ def poll(feeds):
             date = time.strftime("%Y-%m-%d %H:%M:%S", entry['published_parsed'])
             entries.append({
                 'date': date,
-                'title': entry['title'].encode('utf-8'),
-                'link': entry['link'].encode('utf-8'),
+                'title': entry['title'],
+                'link': entry['link']
             })
         modified_date = parsed_feed.get('modified_parsed')
         feed['modified'] =  int(time.mktime(modified_date)) if modified_date else None
@@ -51,7 +51,7 @@ def run(feedlist_file):
         entries = poll(feeds)
         print("fetched %d entries" %len(entries))
         if len(entries) > 0:
-            with open(entries_file, 'a+') as e:
+            with open(entries_file, mode='a+', encoding='utf-8') as e:
                 for entry in entries:
                     e.write("%(date)s\t%(title)s\t%(link)s\n" %entry)
         with open(tracker_file, 'w') as t:
