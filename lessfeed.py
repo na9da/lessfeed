@@ -11,16 +11,16 @@ def poll(feeds):
         print("polling -> %s" %feed['url'])
         parsed_feed = feedparser.parse(feed['url'], etag=feed['etag'], modified=feed['modified'])
         for entry in parsed_feed.entries:
-            published_time = time.mktime(entry['published_parsed'])
-            if feed['last_polled'] is not None and feed['last_polled'] > published_time:
+            published_time = entry.get('published_parsed', entry.get('updated_parsed'))
+            if feed['last_polled'] is not None and feed['last_polled'] > time.mktime(published_time):
                 continue
-            date = time.strftime("%Y-%m-%d %H:%M:%S", entry['published_parsed'])
+            datestr = time.strftime("%Y-%m-%d %H:%M:%S", published_time) 
             entries.append({
-                'date': date,
+                'date': datestr,
                 'title': entry['title'],
                 'link': entry['link']
             })
-        modified_date = parsed_feed.get('modified_parsed')
+        modified_date = parsed_feed.get('modified_parsed', parsed_feed.get('updated_parsed'))
         feed['modified'] =  int(time.mktime(modified_date)) if modified_date else None
         feed['etag'] = parsed_feed.get('etag')
         feed['last_polled'] = int(time.mktime(time.localtime()))
