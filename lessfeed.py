@@ -2,6 +2,7 @@
 
 import time
 import feedparser
+import os.path as path
 
 POLL_INTERVAL = 30 * 60 # seconds
 
@@ -26,10 +27,8 @@ def poll(feeds):
         feed['last_polled'] = int(time.mktime(time.localtime()))
     return entries
 
-def run(feedlist_file):
+def run(feedlist_file, tracker_file, entries_file):
     while 1:
-        tracker_file = './tracker'
-        entries_file = './entries.txt'
         feeds = {}
         with open(feedlist_file) as f:
             for line in f:
@@ -60,6 +59,10 @@ def run(feedlist_file):
                 t.write("%(url)s %(last_polled)s %(etag)s %(modified)s\n" %feed)
         time.sleep(POLL_INTERVAL)
 
-run('./feedlist')
-
+if __name__ == "__main__":
+    scriptdir = path.dirname(__file__)
+    feedlist_file = path.join(scriptdir, 'feedlist.txt')
+    tracker_file = path.join(scriptdir, 'tracker')
+    entries_file = path.join(scriptdir, 'entries.txt')
+    run(feedlist_file, tracker_file, entries_file)
 
