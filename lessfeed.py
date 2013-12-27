@@ -64,5 +64,10 @@ if __name__ == "__main__":
     feedlist_file = path.join(scriptdir, 'feedlist.txt')
     tracker_file = path.join(scriptdir, 'tracker')
     entries_file = path.join(scriptdir, 'entries.txt')
+
+    import sys
+    if len(sys.argv) > 1:
+        logfile = sys.argv[1]
+        sys.stdout = sys.stderr = open(logfile, 'a', 1)
     run(feedlist_file, tracker_file, entries_file)
 
